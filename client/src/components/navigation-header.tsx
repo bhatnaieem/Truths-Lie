@@ -1,7 +1,8 @@
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Bell, Star, VenetianMask } from "lucide-react";
+import { Bell, Star, VenetianMask, LogOut } from "lucide-react";
 import { Link } from "wouter";
+import { useAuth } from "@/hooks/useAuth";
 import type { User } from "@shared/schema";
 
 interface NavigationHeaderProps {
@@ -9,6 +10,8 @@ interface NavigationHeaderProps {
 }
 
 export default function NavigationHeader({ user }: NavigationHeaderProps) {
+  const { logout } = useAuth();
+
   return (
     <header className="bg-white border-b border-gray-200 sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -43,6 +46,11 @@ export default function NavigationHeader({ user }: NavigationHeaderProps) {
               <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
                 3
               </span>
+            </Button>
+
+            {/* Logout */}
+            <Button variant="ghost" size="sm" onClick={logout} className="text-gray-600 hover:text-red-600">
+              <LogOut className="h-4 w-4" />
             </Button>
           </div>
         </div>
