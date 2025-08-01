@@ -65,6 +65,7 @@ export default function CreateGameForm({ userId, onClose }: CreateGameFormProps)
     
     // Debug logging
     console.log('Form submitted with:', { statements, lieStatement, explanation, allowFriendsOnly });
+    console.log('Current user ID:', userId);
     
     // Validation
     if (statements.some(s => !s.trim())) {
@@ -186,8 +187,9 @@ export default function CreateGameForm({ userId, onClose }: CreateGameFormProps)
               </Button>
               <Button 
                 type="submit" 
-                className="bg-farcaster hover:bg-farcaster-dark text-white px-6 py-2"
+                className="bg-purple-600 hover:bg-purple-700 text-white px-6 py-2 font-medium border-2 border-purple-600 shadow-lg"
                 disabled={createGameMutation.isPending}
+                style={{ backgroundColor: '#8B5CF6', borderColor: '#8B5CF6' }}
               >
                 {createGameMutation.isPending ? 'Publishing...' : 'Publish Game'}
               </Button>
