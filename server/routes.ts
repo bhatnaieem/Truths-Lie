@@ -1,6 +1,6 @@
 import type { Express } from "express";
 import { createServer, type Server } from "http";
-import { storage } from "./storage";
+import { vercelStorage as storage } from "./storage-vercel";
 import { insertGameSchema, insertVoteSchema, insertUserSchema } from "@shared/schema";
 import { z } from "zod";
 

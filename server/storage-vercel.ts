@@ -294,6 +294,41 @@ export class VercelStorage {
     return userEntry?.rank || 0;
   }
 
+  async getGameWithResults(id: string): Promise<GameWithResults | undefined> {
+    const game = await this.getGameWithCreator(id);
+    if (!game) return undefined;
+
+    const votes = Array.from(this.getVotes().values()).filter(vote => vote.gameId === id);
+    const statementCounts = [0, 0, 0];
+    votes.forEach(vote => {
+      if (vote.selectedStatement >= 1 && vote.selectedStatement <= 3) {
+        statementCounts[vote.selectedStatement - 1]++;
+      }
+    });
+
+    return {
+      ...game,
+      results: {
+        totalVotes: votes.length,
+        statementVotes: statementCounts,
+        correctGuessers: votes.filter(v => v.isCorrect).length,
+        pointsEarned: votes.filter(v => !v.isCorrect).length * 2, // Points for creator
+      }
+    };
+  }
+
+  async getUserActivities(userId: string, limit = 10): Promise<(Activity & { user: User })[]> {
+    const activities = Array.from(this.getActivities().values())
+      .filter(activity => activity.userId === userId)
+      .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
+      .slice(0, limit);
+
+    return activities.map(activity => {
+      const user = this.getUsers().get(activity.userId);
+      return { ...activity, user: user! };
+    }).filter(activity => activity.user);
+  }
+
   private calculateTimeRemaining(expiresAt: Date): string {
     const now = new Date();
     const timeLeft = expiresAt.getTime() - now.getTime();
