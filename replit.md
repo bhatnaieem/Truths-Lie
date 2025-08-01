@@ -54,6 +54,23 @@ Preferred communication style: Simple, everyday language.
 - **Live Updates**: React Query automatic refetching for dynamic content updates
 - **Game Expiration**: Time-based game lifecycle management
 
+## Recent Changes (January 2025)
+
+### Farcaster Sharing Integration
+- **Date**: January 1, 2025
+- **Feature**: Added comprehensive Farcaster sharing for game results
+- **Components Added**: 
+  - `FarcasterShare` component for generating shareable content
+  - Share buttons integrated into game cards and detail pages
+  - Automatic share text generation showing correct/incorrect guesses
+  - Warpcast integration with direct posting capabilities
+- **User Experience**: Players can now share their results on Farcaster with custom formatted text showing their performance and the game statements
+
+### UI Improvements
+- **Navigation**: Updated bottom navigation with proper icons (Home, Create+, Leaderboard, Refresh)
+- **Demo Content**: Added sample active games for testing voting and sharing features
+- **User Interface**: Enhanced game cards with better visual indicators and share functionality
+
 ## External Dependencies
 
 ### Core Dependencies

@@ -83,6 +83,64 @@ export class MemStorage implements IStorage {
       };
       this.users.set(user.id, user);
     });
+
+    // Add demo games
+    const userIds = Array.from(this.users.keys());
+    const demoGames = [
+      {
+        id: "demo-game-1",
+        creatorId: userIds[0],
+        statements: [
+          "I once ate 50 chicken nuggets in one sitting",
+          "I have a pet tarantula named Fred", 
+          "I can speak fluent Japanese"
+        ],
+        lieStatement: 2,
+        explanation: "I actually don't have any pets! I'm allergic to most animals.",
+        isActive: true,
+        allowFriendsOnly: false,
+        expiresAt: new Date(Date.now() + 24 * 60 * 60 * 1000), // 24 hours from now
+        createdAt: new Date(Date.now() - 2 * 60 * 60 * 1000), // 2 hours ago
+      },
+      {
+        id: "demo-game-2",
+        creatorId: userIds[1], 
+        statements: [
+          "I've been to 15 different countries",
+          "I was born with an extra toe",
+          "I once met a celebrity at a coffee shop"
+        ],
+        lieStatement: 1,
+        explanation: "I've actually only been to 3 countries - the US, Canada, and Mexico!",
+        isActive: true,
+        allowFriendsOnly: false,
+        expiresAt: new Date(Date.now() + 20 * 60 * 60 * 1000), // 20 hours from now
+        createdAt: new Date(Date.now() - 1 * 60 * 60 * 1000), // 1 hour ago
+      },
+      {
+        id: "demo-game-3",
+        creatorId: userIds[2],
+        statements: [
+          "I can solve a Rubik's cube in under 30 seconds",
+          "I once accidentally dyed my hair green", 
+          "I have a collection of over 100 rubber ducks"
+        ],
+        lieStatement: 3,
+        explanation: "I only have about 20 rubber ducks, not 100! But they're still pretty cool.",
+        isActive: true,
+        allowFriendsOnly: false,
+        expiresAt: new Date(Date.now() + 18 * 60 * 60 * 1000), // 18 hours from now
+        createdAt: new Date(Date.now() - 30 * 60 * 1000), // 30 minutes ago
+      }
+    ];
+
+    demoGames.forEach(gameData => {
+      const game: Game = {
+        ...gameData,
+        explanation: gameData.explanation || null,
+      };
+      this.games.set(game.id, game);
+    });
   }
 
   // Users
