@@ -1,7 +1,7 @@
-# TruthLie - Vercel Deployment Guide
+# Truth Lie - Vercel Deployment Guide
 
 ## Overview
-This guide will help you deploy the TruthLie game to Vercel for free hosting. The app has been configured with serverless functions to work seamlessly on Vercel's platform.
+This guide will help you deploy the Truth Lie game to Vercel for free hosting. The app has been configured with serverless functions to work seamlessly on Vercel's platform.
 
 ## Prerequisites
 - A Vercel account (free)
@@ -16,7 +16,7 @@ This guide will help you deploy the TruthLie game to Vercel for free hosting. Th
    ```bash
    git init
    git add .
-   git commit -m "Initial commit - TruthLie game"
+   git commit -m "Initial commit - Truth Lie game"
    git branch -M main
    git remote add origin YOUR_GITHUB_REPO_URL
    git push -u origin main

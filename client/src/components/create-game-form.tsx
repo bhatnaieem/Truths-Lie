@@ -43,6 +43,7 @@ export default function CreateGameForm({ userId, onClose }: CreateGameFormProps)
         description: "Your Truth Lie game has been published and is now live.",
       });
       queryClient.invalidateQueries({ queryKey: ['/api/games'] });
+      queryClient.invalidateQueries({ queryKey: ['/api/activities'] });
       onClose();
       // Reset form
       setStatements(['', '', '']);
@@ -61,6 +62,9 @@ export default function CreateGameForm({ userId, onClose }: CreateGameFormProps)
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    
+    // Debug logging
+    console.log('Form submitted with:', { statements, lieStatement, explanation, allowFriendsOnly });
     
     // Validation
     if (statements.some(s => !s.trim())) {
@@ -97,14 +101,14 @@ export default function CreateGameForm({ userId, onClose }: CreateGameFormProps)
   };
 
   return (
-    <Card>
+    <Card className="w-full max-w-2xl mx-auto">
       <CardHeader className="flex flex-row items-center justify-between">
         <CardTitle>Create Your Truth Lie Game</CardTitle>
         <Button variant="ghost" size="sm" onClick={onClose}>
           <X className="h-4 w-4" />
         </Button>
       </CardHeader>
-      <CardContent>
+      <CardContent className="pb-6">
         <form onSubmit={handleSubmit} className="space-y-6">
           {statements.map((statement, index) => (
             <div key={index}>
@@ -160,8 +164,8 @@ export default function CreateGameForm({ userId, onClose }: CreateGameFormProps)
             </div>
           </div>
           
-          <div className="flex items-center justify-between pt-4">
-            <div className="flex items-center space-x-2">
+          <div className="pt-4 border-t border-gray-200">
+            <div className="flex items-center space-x-2 mb-4">
               <Checkbox 
                 id="friends-only"
                 checked={allowFriendsOnly}
@@ -172,13 +176,22 @@ export default function CreateGameForm({ userId, onClose }: CreateGameFormProps)
               </Label>
             </div>
             
-            <Button 
-              type="submit" 
-              className="bg-farcaster hover:bg-farcaster-dark"
-              disabled={createGameMutation.isPending}
-            >
-              {createGameMutation.isPending ? 'Publishing...' : 'Publish Game'}
-            </Button>
+            <div className="flex justify-end space-x-3">
+              <Button 
+                type="button" 
+                variant="outline"
+                onClick={onClose}
+              >
+                Cancel
+              </Button>
+              <Button 
+                type="submit" 
+                className="bg-farcaster hover:bg-farcaster-dark text-white px-6 py-2"
+                disabled={createGameMutation.isPending}
+              >
+                {createGameMutation.isPending ? 'Publishing...' : 'Publish Game'}
+              </Button>
+            </div>
           </div>
         </form>
       </CardContent>
