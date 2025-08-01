@@ -20,10 +20,10 @@ export default function NavigationHeader({ user }: NavigationHeaderProps) {
             <div className="bg-farcaster p-1.5 rounded-lg">
               <VenetianMask className="text-white h-4 w-4" />
             </div>
-            <h1 className="text-2xl font-bold text-gray-900">🎭 Truth Lie</h1>
+            <h1 className="text-lg font-bold text-gray-900">🎭 Truth Lie</h1>
           </Link>
           
-          <div className="flex items-center space-x-4">
+          <div className="flex items-center space-x-2">
             {/* User Points Display */}
             <Badge variant="secondary" className="bg-gradient-to-r from-farcaster to-farcaster-dark text-white hover:opacity-90">
               <Star className="mr-1 h-3 w-3" />
@@ -31,20 +31,28 @@ export default function NavigationHeader({ user }: NavigationHeaderProps) {
             </Badge>
             
             {/* User Profile */}
-            <div className="flex items-center space-x-2">
+            <div className="flex items-center space-x-1">
               <img 
                 src={user.avatar || '/default-avatar.png'} 
                 alt="User Avatar" 
-                className="w-8 h-8 rounded-full object-cover"
+                className="w-6 h-6 rounded-full object-cover"
               />
-              <span className="text-sm font-medium text-farcaster">@{user.farcasterUsername}</span>
+              <span className="text-xs font-medium text-farcaster hidden sm:inline">@{user.farcasterUsername}</span>
             </div>
             
             {/* Notifications */}
-            <Button variant="ghost" size="sm" className="relative">
+            <Button 
+              variant="ghost" 
+              size="sm" 
+              className="relative"
+              onClick={() => {
+                // TODO: Implement notifications panel
+                console.log('Notifications clicked');
+              }}
+            >
               <Bell className="h-4 w-4" />
-              <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
-                3
+              <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full w-4 h-4 flex items-center justify-center">
+                2
               </span>
             </Button>
 

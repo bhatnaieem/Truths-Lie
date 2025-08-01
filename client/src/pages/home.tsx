@@ -67,11 +67,11 @@ export default function Home() {
       {/* Welcome Instructions */}
       <div className="max-w-4xl mx-auto px-4 pt-8 pb-4">
         <div className="bg-gradient-to-r from-purple-500 to-pink-500 rounded-xl text-white p-6 mb-8">
-          <h2 className="text-2xl font-bold mb-2">🎭 Welcome to Truth Lie!</h2>
-          <p className="text-purple-100 mb-3">
+          <h2 className="text-xl font-bold mb-2">🎭 Welcome to Truth Lie!</h2>
+          <p className="text-sm text-purple-100 mb-3">
             The social guessing game built for Farcaster. Challenge your friends and test your intuition!
           </p>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
             <div className="flex items-center space-x-2">
               <span className="bg-white bg-opacity-20 rounded-full w-6 h-6 flex items-center justify-center font-bold">1</span>
               <span>Read three statements</span>
@@ -148,7 +148,7 @@ export default function Home() {
             {/* Active Games Feed */}
             <div className="space-y-6">
               <div className="flex items-center justify-between">
-                <h2 className="text-xl font-bold text-gray-900">Active Games</h2>
+                <h2 className="text-lg font-bold text-gray-900">Active Games</h2>
                 <div className="flex items-center space-x-2">
                   <Button
                     variant={gameFilter === 'all' ? 'default' : 'ghost'}
