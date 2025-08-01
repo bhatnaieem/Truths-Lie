@@ -16,22 +16,41 @@ export async function registerRoutes(app: Express): Promise<Server> {
     try {
       const { farcasterUsername, farcasterUserId, avatar } = req.body;
       
+      console.log('Login attempt:', { farcasterUsername, farcasterUserId });
+      
       // Check if user exists
       let user = await storage.getUserByFarcasterId(farcasterUserId);
       
       if (!user) {
-        // Create new user
-        const userData = insertUserSchema.parse({
+        // Create new user with proper default values
+        const userData = {
           farcasterUsername,
           farcasterUserId,
-          avatar,
-        });
+          avatar: avatar || null,
+          points: 0,
+          totalGamesPlayed: 0,
+          totalGamesCreated: 0,
+          totalCorrectGuesses: 0,
+          totalPlayersStumped: 0,
+          currentStreak: 0,
+          longestStreak: 0,
+          weeklyPoints: 0,
+        };
+        
         user = await storage.createUser(userData);
+        console.log('Created new user:', user.id, user.farcasterUsername);
+      } else {
+        console.log('Found existing user:', user.id, user.farcasterUsername);
+        // Update avatar if provided
+        if (avatar && user.avatar !== avatar) {
+          user = await storage.updateUserStats(user.id, { avatar });
+        }
       }
       
       res.json({ user });
     } catch (error) {
-      res.status(400).json({ error: error instanceof Error ? error.message : 'Invalid request' });
+      console.error('Login error:', error);
+      res.status(500).json({ error: error instanceof Error ? error.message : 'Internal server error' });
     }
   });
 
@@ -49,26 +68,30 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   app.get("/api/users/:id/stats", async (req, res) => {
     try {
+      console.log('Getting stats for user:', req.params.id);
       const user = await storage.getUser(req.params.id);
       if (!user) {
+        console.log('User not found:', req.params.id);
         return res.status(404).json({ error: 'User not found' });
       }
 
       const rank = await storage.getUserRank(req.params.id, 'weekly');
       const games = await storage.getUserGames(req.params.id);
       
-      res.json({
-        stats: {
-          gamesPlayed: user.totalGamesPlayed,
-          correctGuesses: user.totalCorrectGuesses,
-          stumpedPlayers: user.totalPlayersStumped,
-          streak: user.currentStreak,
-          points: user.points,
-          rank,
-          recentGames: games.slice(0, 5),
-        }
-      });
+      const stats = {
+        gamesPlayed: user.totalGamesPlayed || 0,
+        correctGuesses: user.totalCorrectGuesses || 0,
+        stumpedPlayers: user.totalPlayersStumped || 0,
+        streak: user.currentStreak || 0,
+        points: user.points || 0,
+        rank,
+        recentGames: games.slice(0, 5),
+      };
+      
+      console.log('Returning stats:', stats);
+      res.json({ stats });
     } catch (error) {
+      console.error('Stats error:', error);
       res.status(500).json({ error: 'Internal server error' });
     }
   });
