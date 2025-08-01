@@ -37,7 +37,16 @@ function FarcasterAuthComponent({ onLoginSuccess }: FarcasterLoginProps) {
         headers: { 'Content-Type': 'application/json' },
       })
       .then(res => res.json())
-      .then(data => onLoginSuccess(data.user))
+      .then(data => {
+        // Store Farcaster auth state in localStorage for persistence
+        localStorage.setItem('farcaster_auth', JSON.stringify({
+          isAuthenticated: true,
+          profile: profile,
+          user: data.user,
+          timestamp: Date.now()
+        }));
+        onLoginSuccess(data.user);
+      })
       .catch(error => console.error('Login failed:', error));
     }
   }, [isAuthenticated, profile, onLoginSuccess]);
