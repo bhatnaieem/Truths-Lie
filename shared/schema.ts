@@ -21,7 +21,6 @@ export const games = pgTable("games", {
   id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
   creatorId: varchar("creator_id").notNull().references(() => users.id),
   statements: jsonb("statements").notNull(), // Array of 3 statements
-  statementMedia: jsonb("statement_media"), // Array of {type: 'image'|'video', url: string, thumbnail?: string}
   lieStatement: integer("lie_statement").notNull(), // 1, 2, or 3
   explanation: text("explanation"),
   isActive: boolean("is_active").notNull().default(true),
@@ -57,17 +56,11 @@ export const insertUserSchema = createInsertSchema(users).pick({
 
 export const insertGameSchema = createInsertSchema(games).pick({
   statements: true,
-  statementMedia: true,
   lieStatement: true,
   explanation: true,
   allowFriendsOnly: true,
 }).extend({
   statements: z.array(z.string().min(1).max(280)).length(3),
-  statementMedia: z.array(z.object({
-    type: z.enum(['image', 'video']),
-    url: z.string().url(),
-    thumbnail: z.string().url().optional(),
-  })).length(3).optional(),
   lieStatement: z.number().min(1).max(3),
   explanation: z.string().optional(),
 });
