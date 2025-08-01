@@ -1,10 +1,7 @@
-import React, { useState, useEffect } from "react";
-import { useMutation } from "@tanstack/react-query";
+import React, { useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { ExternalLink, LogIn } from "lucide-react";
+import { ExternalLink } from "lucide-react";
 import "@farcaster/auth-kit/styles.css";
 import { AuthKitProvider, SignInButton, useProfile } from "@farcaster/auth-kit";
 
@@ -14,8 +11,8 @@ interface FarcasterLoginProps {
 
 const config = {
   rpcUrl: "https://mainnet.optimism.io",
-  domain: "truthlie.app",
-  siweUri: typeof window !== 'undefined' ? window.location.origin : "http://localhost:5000",
+  domain: typeof window !== 'undefined' ? window.location.hostname : "truthlie.app",
+  siweUri: typeof window !== 'undefined' ? window.location.origin : "https://truthlie.app",
 };
 
 function FarcasterAuthComponent({ onLoginSuccess }: FarcasterLoginProps) {
@@ -49,45 +46,6 @@ function FarcasterAuthComponent({ onLoginSuccess }: FarcasterLoginProps) {
 }
 
 export default function FarcasterLogin({ onLoginSuccess }: FarcasterLoginProps) {
-  const [farcasterUsername, setFarcasterUsername] = useState("");
-  const [isConnecting, setIsConnecting] = useState(false);
-
-  const loginMutation = useMutation({
-    mutationFn: async (userData: { farcasterUsername: string; farcasterUserId: string; avatar?: string }) => {
-      const response = await fetch('/api/auth/login', {
-        method: 'POST',
-        body: JSON.stringify(userData),
-        headers: { 'Content-Type': 'application/json' },
-      });
-      if (!response.ok) throw new Error('Login failed');
-      return response.json();
-    },
-    onSuccess: (data) => {
-      onLoginSuccess(data.user);
-    },
-    onError: (error) => {
-      console.error('Login failed:', error);
-    },
-  });
-
-  const handleConnect = async () => {
-    if (!farcasterUsername.trim()) return;
-    
-    setIsConnecting(true);
-    
-    // Demo user creation for testing
-    const mockUserData = {
-      farcasterUsername: farcasterUsername.trim(),
-      farcasterUserId: Math.random().toString(36).substring(7),
-      avatar: `https://images.unsplash.com/photo-${Math.floor(Math.random() * 1000000000)}?w=150&h=150&fit=crop&crop=face`,
-    };
-    
-    try {
-      await loginMutation.mutateAsync(mockUserData);
-    } finally {
-      setIsConnecting(false);
-    }
-  };
 
   return (
     <AuthKitProvider config={config}>
@@ -103,61 +61,42 @@ export default function FarcasterLogin({ onLoginSuccess }: FarcasterLoginProps) 
               Connect with Farcaster to start playing the ultimate social guessing game
             </CardDescription>
           </CardHeader>
-          <CardContent className="space-y-4">
+          <CardContent className="space-y-6">
             <div className="text-center space-y-4">
-              <div className="bg-purple-50 border border-purple-200 rounded-lg p-4">
-                <p className="text-sm text-purple-800 mb-2">
-                  <strong>Demo Mode Available</strong>
+              <div className="bg-gradient-to-r from-purple-100 to-pink-100 border border-purple-200 rounded-lg p-6">
+                <div className="w-12 h-12 mx-auto mb-3 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full flex items-center justify-center">
+                  <span className="text-xl text-white">🔗</span>
+                </div>
+                <p className="text-sm text-purple-800 font-medium mb-2">
+                  Connect Your Farcaster Account
                 </p>
                 <p className="text-xs text-purple-600">
-                  Enter any username to try the game, or connect with real Farcaster authentication below.
+                  Sign in with your Farcaster account to start playing Truth Lie and challenge your friends.
                 </p>
-              </div>
-              
-              <div className="space-y-2">
-                <Label htmlFor="username">Demo Username</Label>
-                <Input
-                  id="username"
-                  type="text"
-                  placeholder="Enter any username to try the demo"
-                  value={farcasterUsername}
-                  onChange={(e) => setFarcasterUsername(e.target.value)}
-                  onKeyPress={(e) => e.key === 'Enter' && handleConnect()}
-                />
-              </div>
-              
-              <Button 
-                onClick={handleConnect}
-                disabled={!farcasterUsername.trim() || isConnecting || loginMutation.isPending}
-                className="w-full bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600"
-              >
-                <LogIn className="w-4 h-4 mr-2" />
-                {isConnecting || loginMutation.isPending ? 'Connecting...' : 'Enter Demo'}
-              </Button>
-            </div>
-
-            <div className="relative">
-              <div className="absolute inset-0 flex items-center">
-                <span className="w-full border-t" />
-              </div>
-              <div className="relative flex justify-center text-xs uppercase">
-                <span className="bg-background px-2 text-muted-foreground">Real Farcaster Auth</span>
               </div>
             </div>
 
             <SignInButton>
               <Button 
-                variant="outline" 
-                className="w-full border-purple-200 hover:bg-purple-50"
+                className="w-full bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white font-medium py-3"
+                size="lg"
               >
-                <ExternalLink className="w-4 h-4 mr-2" />
+                <ExternalLink className="w-5 h-5 mr-2" />
                 Sign In with Farcaster
               </Button>
             </SignInButton>
 
-            <div className="text-center text-sm text-gray-600">
-              <p>Built natively for the Farcaster ecosystem</p>
-              <p className="mt-1">Created by <span className="text-purple-600 font-medium">@deathnotes.eth</span></p>
+            <div className="text-center text-sm text-gray-600 space-y-2">
+              <p className="text-xs text-gray-500">
+                By connecting, you agree to our terms of service
+              </p>
+              <div className="flex items-center justify-center space-x-1 text-xs">
+                <span>Built natively for</span>
+                <span className="font-medium text-purple-600">Farcaster</span>
+              </div>
+              <p className="text-xs">
+                Created by <span className="text-purple-600 font-medium">@deathnotes.eth</span>
+              </p>
             </div>
           </CardContent>
         </Card>
