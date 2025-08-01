@@ -85,8 +85,7 @@ Preferred communication style: Simple, everyday language.
 - **Real Farcaster Integration**: Complete production-ready authentication system:
   - Farcaster Auth Kit integration with proper Sign In flow
   - Automatic user creation and session management
-  - Persistent authentication - users stay logged in across sessions
-  - 24-hour session expiration with automatic cleanup
+  - Persistent authentication - users stay logged in indefinitely across sessions
   - No demo mode - only real Farcaster accounts
   - Production-ready domain configuration
   - Logout functionality in navigation header with session clearing
@@ -95,7 +94,7 @@ Preferred communication style: Simple, everyday language.
   - Proper Frame meta tags for social sharing
   - Deep linking to Warpcast for authentication
 - **User Flow**: Users must authenticate with Farcaster before accessing any game features
-- **Session Persistence**: Authentication state stored in localStorage with timestamp validation
+- **Session Persistence**: Authentication state stored in localStorage permanently until manual logout
 - **Deployment Ready**: Configured for production deployment on Vercel with proper domain settings
 
 ### Farcaster Integration Optimization
