@@ -106,6 +106,10 @@
   .animate-pulse-gentle {
     animation: pulseGentle 2s infinite;
   }
+
+  .safe-area-pb {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
 }
 
 @keyframes slideUp {
