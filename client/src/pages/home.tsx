@@ -8,7 +8,7 @@ import ActivityFeed from "@/components/activity-feed";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Plus, Play, Trophy, Star, Clock } from "lucide-react";
+import { Plus, Play, Trophy, Star, Clock, Home as HomeIcon, RefreshCw } from "lucide-react";
 import type { GameWithCreator, User } from "@shared/schema";
 
 // Mock current user - in a real app this would come from Farcaster auth
@@ -244,7 +244,7 @@ export default function Home() {
               className="flex flex-col items-center py-1 px-3"
               onClick={() => window.location.href = '/'}
             >
-              <Plus className="h-5 w-5 mb-1" />
+              <HomeIcon className="h-5 w-5 mb-1" />
               <span className="text-xs">Home</span>
             </Button>
             <Button
@@ -253,7 +253,7 @@ export default function Home() {
               className="flex flex-col items-center py-1 px-3"
               onClick={() => setShowCreateForm(!showCreateForm)}
             >
-              <Play className="h-5 w-5 mb-1" />
+              <Plus className="h-5 w-5 mb-1" />
               <span className="text-xs">Create</span>
             </Button>
             <Button
@@ -271,7 +271,7 @@ export default function Home() {
               className="flex flex-col items-center py-1 px-3"
               onClick={() => window.location.reload()}
             >
-              <Star className="h-5 w-5 mb-1" />
+              <RefreshCw className="h-5 w-5 mb-1" />
               <span className="text-xs">Refresh</span>
             </Button>
           </div>
