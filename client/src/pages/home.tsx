@@ -11,31 +11,21 @@ import { Badge } from "@/components/ui/badge";
 import { Plus, Play, Trophy, Star, Clock, Home as HomeIcon, RefreshCw, User as UserIcon, ExternalLink } from "lucide-react";
 import type { GameWithCreator, User } from "@shared/schema";
 
-// Mock current user - in a real app this would come from Farcaster auth
-const MOCK_USER: User = {
-  id: "current-user",
-  farcasterUsername: "alice.eth",
-  farcasterUserId: "1",
-  avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face",
-  points: 247,
-  totalGamesCreated: 8,
-  totalGamesPlayed: 23,
-  totalCorrectGuesses: 18,
-  totalPlayersStumped: 12,
-  currentStreak: 5,
-  createdAt: new Date(),
-};
+import { useAuth } from "@/hooks/useAuth";
 
 export default function Home() {
+  const { user } = useAuth();
   const [showCreateForm, setShowCreateForm] = useState(false);
   const [showAbout, setShowAbout] = useState(false);
   const [gameFilter, setGameFilter] = useState<'all' | 'friends' | 'new'>('all');
 
+  if (!user) return null;
+
   const { data: gamesData, isLoading: gamesLoading } = useQuery({
-    queryKey: ['/api/games', { userId: MOCK_USER.id, friendsOnly: gameFilter === 'friends' }],
+    queryKey: ['/api/games', { userId: user.id, friendsOnly: gameFilter === 'friends' }],
     queryFn: async () => {
       const params = new URLSearchParams({
-        userId: MOCK_USER.id,
+        userId: user.id,
         limit: '10',
         friendsOnly: gameFilter === 'friends' ? 'true' : 'false',
       });
@@ -46,9 +36,9 @@ export default function Home() {
   });
 
   const { data: statsData } = useQuery({
-    queryKey: ['/api/users', MOCK_USER.id, 'stats'],
+    queryKey: ['/api/users', user.id, 'stats'],
     queryFn: async () => {
-      const response = await fetch(`/api/users/${MOCK_USER.id}/stats`);
+      const response = await fetch(`/api/users/${user.id}/stats`);
       if (!response.ok) throw new Error('Failed to fetch stats');
       return response.json();
     },
@@ -56,17 +46,17 @@ export default function Home() {
 
   const games: GameWithCreator[] = gamesData?.games || [];
   const stats = statsData?.stats || {
-    gamesPlayed: MOCK_USER.totalGamesPlayed,
-    correctGuesses: MOCK_USER.totalCorrectGuesses,
-    stumpedPlayers: MOCK_USER.totalPlayersStumped,
-    streak: MOCK_USER.currentStreak,
-    points: MOCK_USER.points,
+    gamesPlayed: user.totalGamesPlayed,
+    correctGuesses: user.totalCorrectGuesses,
+    stumpedPlayers: user.totalPlayersStumped,
+    streak: user.currentStreak,
+    points: user.points,
     rank: 12,
   };
 
   return (
     <div className="bg-gray-50 min-h-screen">
-      <NavigationHeader user={MOCK_USER} />
+      <NavigationHeader user={user} />
       
       {/* Welcome Instructions */}
       <div className="max-w-4xl mx-auto px-4 pt-8 pb-4">
@@ -143,7 +133,7 @@ export default function Home() {
             {showCreateForm && (
               <div className="mb-8 animate-slide-up">
                 <CreateGameForm 
-                  userId={MOCK_USER.id}
+                  userId={user.id}
                   onClose={() => setShowCreateForm(false)}
                 />
               </div>
@@ -194,7 +184,7 @@ export default function Home() {
                     <GameCard 
                       key={game.id} 
                       game={game} 
-                      currentUserId={MOCK_USER.id}
+                      currentUserId={user.id}
                     />
                   ))}
                 </div>
@@ -216,7 +206,7 @@ export default function Home() {
 
           {/* Right Column: Leaderboard & Quick Stats */}
           <div className="space-y-6">
-            <LeaderboardWidget currentUserId={MOCK_USER.id} />
+            <LeaderboardWidget currentUserId={user.id} />
             <ActivityFeed />
             
             {/* Daily Challenge */}

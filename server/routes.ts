@@ -244,6 +244,45 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Farcaster Frame endpoint
+  app.post("/api/frame", async (req, res) => {
+    try {
+      const { untrustedData } = req.body;
+      const buttonIndex = untrustedData?.buttonIndex || 1;
+      
+      if (buttonIndex === 1) {
+        // User wants to enter the game
+        const frameHtml = `
+          <!DOCTYPE html>
+          <html>
+            <head>
+              <meta name="fc:frame" content="vNext" />
+              <meta name="fc:frame:image" content="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=800&h=400&fit=crop&crop=center" />
+              <meta name="fc:frame:post_url" content="/api/frame/login" />
+              <meta name="fc:frame:button:1" content="🔗 Connect & Play" />
+              <meta name="fc:frame:button:1:action" content="link" />
+              <meta name="fc:frame:button:1:target" content="/" />
+              <meta name="fc:frame:input:text" content="Enter your Farcaster username" />
+            </head>
+            <body>
+              <h1>Truth Lie - Farcaster Game</h1>
+              <p>Connect your Farcaster account to start playing!</p>
+            </body>
+          </html>
+        `;
+        
+        res.setHeader('Content-Type', 'text/html');
+        res.send(frameHtml);
+      } else {
+        // Redirect to app
+        res.redirect('/');
+      }
+    } catch (error) {
+      console.error('Frame error:', error);
+      res.status(500).json({ error: 'Frame processing failed' });
+    }
+  });
+
   const httpServer = createServer(app);
   return httpServer;
 }
