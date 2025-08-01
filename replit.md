@@ -66,9 +66,18 @@ Preferred communication style: Simple, everyday language.
   - Warpcast integration with direct posting capabilities
 - **User Experience**: Players can now share their results on Farcaster with custom formatted text showing their performance and the game statements
 
-### UI Improvements
-- **Navigation**: Updated bottom navigation with proper icons (Home, Create+, Leaderboard, Refresh)
-- **Demo Content**: Added sample active games for testing voting and sharing features
+### User Experience Enhancements
+- **Date**: August 1, 2025
+- **Navigation Updates**: Replaced refresh button with About section in bottom navigation
+- **About Modal**: Added comprehensive about section with:
+  - Game explanation and how-to-play instructions
+  - Creator attribution to deathnotes.eth
+  - Direct link to follow @deathnotes.eth on Farcaster
+- **User Instructions**: Added contextual instructions throughout the app:
+  - Purple instruction boxes on game cards before voting
+  - Blue instruction boxes on game detail pages with tips
+  - Welcome banner on home page explaining the 3-step process
+- **Demo Content**: Added 3 active demo games for testing voting and sharing features
 - **User Interface**: Enhanced game cards with better visual indicators and share functionality
 
 ## External Dependencies

@@ -8,7 +8,7 @@ import ActivityFeed from "@/components/activity-feed";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Plus, Play, Trophy, Star, Clock, Home as HomeIcon, RefreshCw } from "lucide-react";
+import { Plus, Play, Trophy, Star, Clock, Home as HomeIcon, RefreshCw, User as UserIcon, ExternalLink } from "lucide-react";
 import type { GameWithCreator, User } from "@shared/schema";
 
 // Mock current user - in a real app this would come from Farcaster auth
@@ -28,6 +28,7 @@ const MOCK_USER: User = {
 
 export default function Home() {
   const [showCreateForm, setShowCreateForm] = useState(false);
+  const [showAbout, setShowAbout] = useState(false);
   const [gameFilter, setGameFilter] = useState<'all' | 'friends' | 'new'>('all');
 
   const { data: gamesData, isLoading: gamesLoading } = useQuery({
@@ -293,14 +294,63 @@ export default function Home() {
               variant="ghost"
               size="sm"
               className="flex flex-col items-center py-1 px-3"
-              onClick={() => window.location.reload()}
+              onClick={() => setShowAbout(!showAbout)}
             >
-              <RefreshCw className="h-5 w-5 mb-1" />
-              <span className="text-xs">Refresh</span>
+              <UserIcon className="h-5 w-5 mb-1" />
+              <span className="text-xs">About</span>
             </Button>
           </div>
         </div>
       </div>
+      
+      {/* About Modal */}
+      {showAbout && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-lg max-w-md w-full p-6">
+            <div className="flex items-center justify-between mb-4">
+              <h3 className="text-lg font-semibold">About Truth Lie</h3>
+              <Button 
+                variant="ghost" 
+                size="sm" 
+                onClick={() => setShowAbout(false)}
+                className="h-8 w-8 p-0"
+              >
+                ×
+              </Button>
+            </div>
+            
+            <div className="space-y-4">
+              <p className="text-gray-600 text-sm">
+                Truth Lie is a social guessing game built on Farcaster where players create engaging 
+                three-statement challenges and the community votes to detect the lie.
+              </p>
+              
+              <div className="bg-purple-50 border border-purple-200 rounded-lg p-4">
+                <h4 className="font-semibold text-purple-900 mb-2">How it works:</h4>
+                <ul className="text-purple-700 text-sm space-y-1">
+                  <li>• Create games with 2 truths and 1 lie</li>
+                  <li>• Vote on other players' games</li>
+                  <li>• Earn points for correct guesses</li>
+                  <li>• Share results on Farcaster</li>
+                </ul>
+              </div>
+              
+              <div className="border-t pt-4">
+                <p className="text-gray-600 text-sm mb-3">
+                  Created by deathnotes.eth - Follow me on Farcaster for updates!
+                </p>
+                <Button 
+                  className="w-full bg-farcaster hover:bg-farcaster-dark text-white"
+                  onClick={() => window.open('https://farcaster.xyz/deathnotes.eth', '_blank')}
+                >
+                  <ExternalLink className="mr-2 h-4 w-4" />
+                  Follow @deathnotes.eth
+                </Button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
