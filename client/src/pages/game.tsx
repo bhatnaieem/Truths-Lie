@@ -124,6 +124,25 @@ export default function Game() {
               </div>
             </div>
 
+            {/* Game Instructions for Detail Page */}
+            {game.isActive && !game.hasVoted && (
+              <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6">
+                <div className="flex items-center space-x-2 mb-2">
+                  <div className="bg-blue-100 rounded-full w-6 h-6 flex items-center justify-center">
+                    <span className="text-blue-600 font-bold text-sm">!</span>
+                  </div>
+                  <h4 className="font-semibold text-blue-900">Truth Lie Challenge</h4>
+                </div>
+                <p className="text-blue-800 text-sm">
+                  @{game.creator.farcasterUsername} has shared three statements about themselves. 
+                  <strong> Two are true, one is a lie.</strong> Can you spot which one is false?
+                </p>
+                <p className="text-blue-700 text-xs mt-2">
+                  💡 Tip: Look for details that seem too specific, too perfect, or just don't quite fit!
+                </p>
+              </div>
+            )}
+
             <VotingInterface 
               game={game} 
               currentUserId={MOCK_USER.id}

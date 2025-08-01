@@ -67,6 +67,30 @@ export default function Home() {
     <div className="bg-gray-50 min-h-screen">
       <NavigationHeader user={MOCK_USER} />
       
+      {/* Welcome Instructions */}
+      <div className="max-w-4xl mx-auto px-4 pt-8 pb-4">
+        <div className="bg-gradient-to-r from-purple-500 to-pink-500 rounded-xl text-white p-6 mb-8">
+          <h2 className="text-2xl font-bold mb-2">Welcome to Truth Lie!</h2>
+          <p className="text-purple-100 mb-3">
+            Challenge your friends and test your intuition in this social guessing game.
+          </p>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
+            <div className="flex items-center space-x-2">
+              <span className="bg-white bg-opacity-20 rounded-full w-6 h-6 flex items-center justify-center font-bold">1</span>
+              <span>Read three statements</span>
+            </div>
+            <div className="flex items-center space-x-2">
+              <span className="bg-white bg-opacity-20 rounded-full w-6 h-6 flex items-center justify-center font-bold">2</span>
+              <span>Spot the one lie</span>
+            </div>
+            <div className="flex items-center space-x-2">
+              <span className="bg-white bg-opacity-20 rounded-full w-6 h-6 flex items-center justify-center font-bold">3</span>
+              <span>Share on Farcaster</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Game Statistics Banner */}
         <Card className="bg-gradient-to-r from-farcaster to-farcaster-dark text-white mb-8">
