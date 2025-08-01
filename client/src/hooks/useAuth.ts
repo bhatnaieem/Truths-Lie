@@ -11,15 +11,8 @@ export function useAuth() {
     if (storedAuth) {
       try {
         const authData = JSON.parse(storedAuth);
-        // Check if auth session is still valid (24 hours)
-        const isExpired = Date.now() - authData.timestamp > 24 * 60 * 60 * 1000;
-        
-        if (!isExpired && authData.user) {
+        if (authData.user) {
           setUser(authData.user);
-        } else {
-          // Clean up expired session
-          localStorage.removeItem('farcaster_auth');
-          localStorage.removeItem('farcaster_user');
         }
       } catch (error) {
         console.error('Failed to parse stored auth:', error);
