@@ -368,7 +368,7 @@ export class VercelStorage {
 
     return {
       ...game,
-      results: {
+      voteCounts: {
         totalVotes: votes.length,
         statementVotes: statementCounts,
         correctGuessers: votes.filter(v => v.isCorrect).length,

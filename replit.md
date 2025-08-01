@@ -89,6 +89,15 @@ Preferred communication style: Simple, everyday language.
 - **User Experience**: Highlighted Farcaster usernames with branded colors and styling
 - **Creator Attribution**: Emphasized the app being "built natively for Farcaster"
 
+### Vercel Deployment Preparation
+- **Date**: August 1, 2025
+- **Serverless Functions**: Configured API routes for Vercel serverless deployment
+- **Build Configuration**: Updated vercel.json with proper routing and Node.js runtime
+- **Production Optimization**: Added CORS middleware and session handling for production
+- **Documentation**: Created comprehensive DEPLOYMENT.md guide
+- **UI Fixes**: Resolved text overlapping issues in leaderboard and reduced navigation logo size
+- **Storage**: Optimized in-memory storage for serverless environment
+
 ## External Dependencies
 
 ### Core Dependencies

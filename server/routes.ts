@@ -4,6 +4,12 @@ import { vercelStorage as storage } from "./storage-vercel";
 import { insertGameSchema, insertVoteSchema, insertUserSchema } from "@shared/schema";
 import { z } from "zod";
 
+export function createRouter() {
+  const router = require('express').Router();
+
+  return router;
+}
+
 export async function registerRoutes(app: Express): Promise<Server> {
   // User authentication and profile
   app.post("/api/auth/login", async (req, res) => {
