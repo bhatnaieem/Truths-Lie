@@ -138,7 +138,7 @@ export class MemStorage implements IStorage {
       const game: Game = {
         ...gameData,
         explanation: gameData.explanation || null,
-        allowFriendsOnly: gameData.allowFriendsOnly || false,
+        allowFriendsOnly: gameData.allowFriendsOnly ?? false,
       };
       this.games.set(game.id, game);
     });
@@ -273,6 +273,7 @@ export class MemStorage implements IStorage {
       id: randomUUID(),
       ...gameData,
       explanation: gameData.explanation || null,
+      allowFriendsOnly: gameData.allowFriendsOnly ?? false,
       isActive: true,
       expiresAt: new Date(Date.now() + 24 * 60 * 60 * 1000), // 24 hours from now
       createdAt: new Date(),

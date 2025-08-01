@@ -73,6 +73,35 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Current user endpoint - essential for the frontend
+  app.get("/api/users/current-user/stats", async (req, res) => {
+    try {
+      // Use demo user for deployment
+      const currentUserId = 'current-user';
+      const user = await storage.getUser(currentUserId);
+      if (!user) {
+        return res.status(404).json({ error: 'User not found' });
+      }
+
+      const rank = await storage.getUserRank(currentUserId, 'weekly');
+      const games = await storage.getUserGames(currentUserId);
+      
+      res.json({
+        stats: {
+          gamesPlayed: user.totalGamesPlayed,
+          correctGuesses: user.totalCorrectGuesses,
+          stumpedPlayers: user.totalPlayersStumped,
+          streak: user.currentStreak,
+          points: user.points,
+          rank,
+          recentGames: games.slice(0, 5),
+        }
+      });
+    } catch (error) {
+      res.status(500).json({ error: 'Internal server error' });
+    }
+  });
+
   // Games
   app.get("/api/games", async (req, res) => {
     try {
