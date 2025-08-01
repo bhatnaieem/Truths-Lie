@@ -34,10 +34,11 @@ export default function Home() {
       return response.json();
     },
     enabled: !!user,
+    refetchInterval: 3000, // Refresh games every 3 seconds
   });
 
   const { data: statsData } = useQuery({
-    queryKey: ['/api/users', user?.id, 'stats'],
+    queryKey: [`/api/users/${user?.id}/stats`],
     queryFn: async () => {
       if (!user) return { stats: {} };
       const response = await fetch(`/api/users/${user.id}/stats`);
@@ -45,6 +46,7 @@ export default function Home() {
       return response.json();
     },
     enabled: !!user,
+    refetchInterval: 2000, // Refresh every 2 seconds for real-time updates
   });
 
   if (!user) return null;

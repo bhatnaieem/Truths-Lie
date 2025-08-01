@@ -52,9 +52,6 @@ export default function NavigationHeader({ user }: NavigationHeaderProps) {
               }}
             >
               <Bell className="h-4 w-4 text-gray-600" />
-              <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full w-4 h-4 flex items-center justify-center font-medium">
-                2
-              </span>
             </Button>
 
             {/* Logout */}

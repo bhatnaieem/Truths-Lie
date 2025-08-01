@@ -38,7 +38,11 @@ export default function VotingInterface({ game, currentUserId }: VotingInterface
         title: "Vote submitted!",
         description: "Your vote has been recorded. Check back later for results.",
       });
+      // Invalidate multiple queries to refresh all data
       queryClient.invalidateQueries({ queryKey: ['/api/games', game.id] });
+      queryClient.invalidateQueries({ queryKey: ['/api/games'] });
+      queryClient.invalidateQueries({ queryKey: [`/api/users/${currentUserId}/stats`] });
+      queryClient.invalidateQueries({ queryKey: ['/api/leaderboard'] });
     },
     onError: (error) => {
       toast({
