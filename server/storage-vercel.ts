@@ -30,7 +30,7 @@ function initializeStorage() {
   if (!storage.has('users')) {
     const users = new Map<string, User>();
     const demoUsers = [
-      { farcasterUsername: 'alice.eth', farcasterUserId: '1', avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face', points: 247 },
+      { id: 'current-user', farcasterUsername: 'alice.eth', farcasterUserId: '1', avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face', points: 247 },
       { farcasterUsername: 'mike.crypto', farcasterUserId: '2', avatar: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face', points: 891 },
       { farcasterUsername: 'sarah.base', farcasterUserId: '3', avatar: 'https://images.unsplash.com/photo-1494790108755-2616b612b786?w=150&h=150&fit=crop&crop=face', points: 756 },
       { farcasterUsername: 'emily.base', farcasterUserId: '4', avatar: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150&h=150&fit=crop&crop=face', points: 423 },
@@ -39,7 +39,7 @@ function initializeStorage() {
 
     demoUsers.forEach(userData => {
       const user: User = {
-        id: randomUUID(),
+        id: userData.id || randomUUID(),
         ...userData,
         avatar: userData.avatar || null,
         totalGamesCreated: Math.floor(Math.random() * 20) + 5,

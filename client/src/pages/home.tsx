@@ -233,6 +233,50 @@ export default function Home() {
           </div>
         </div>
       </div>
+      
+      {/* Bottom Navigation */}
+      <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 px-4 py-2 safe-area-pb">
+        <div className="max-w-md mx-auto">
+          <div className="flex justify-around items-center">
+            <Button
+              variant="ghost"
+              size="sm"
+              className="flex flex-col items-center py-1 px-3"
+              onClick={() => window.location.href = '/'}
+            >
+              <Plus className="h-5 w-5 mb-1" />
+              <span className="text-xs">Home</span>
+            </Button>
+            <Button
+              variant="ghost"
+              size="sm"
+              className="flex flex-col items-center py-1 px-3"
+              onClick={() => setShowCreateForm(!showCreateForm)}
+            >
+              <Play className="h-5 w-5 mb-1" />
+              <span className="text-xs">Create</span>
+            </Button>
+            <Button
+              variant="ghost"
+              size="sm"
+              className="flex flex-col items-center py-1 px-3"
+              onClick={() => window.location.href = '/leaderboard'}
+            >
+              <Trophy className="h-5 w-5 mb-1" />
+              <span className="text-xs">Leaderboard</span>
+            </Button>
+            <Button
+              variant="ghost"
+              size="sm"
+              className="flex flex-col items-center py-1 px-3"
+              onClick={() => window.location.reload()}
+            >
+              <Star className="h-5 w-5 mb-1" />
+              <span className="text-xs">Refresh</span>
+            </Button>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

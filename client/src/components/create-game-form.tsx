@@ -42,8 +42,10 @@ export default function CreateGameForm({ userId, onClose }: CreateGameFormProps)
         title: "Game created!",
         description: "Your Truth Lie game has been published and is now live.",
       });
-      queryClient.invalidateQueries({ queryKey: ['/api/games'] });
-      queryClient.invalidateQueries({ queryKey: ['/api/activities'] });
+      // Force refresh all queries
+      queryClient.invalidateQueries();
+      queryClient.refetchQueries({ queryKey: ['/api/games'] });
+      queryClient.refetchQueries({ queryKey: ['/api/activities'] });
       onClose();
       // Reset form
       setStatements(['', '', '']);
