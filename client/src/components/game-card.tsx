@@ -123,6 +123,23 @@ export default function GameCard({ game, currentUserId }: GameCardProps) {
           </div>
         </div>
         
+        {/* Game Instructions */}
+        {!game.hasVoted && (
+          <div className="bg-purple-50 border border-purple-200 rounded-lg p-4 mb-4">
+            <div className="flex items-start space-x-3">
+              <div className="bg-purple-100 rounded-full p-2 flex-shrink-0">
+                <span className="text-purple-600 font-semibold text-sm">?</span>
+              </div>
+              <div>
+                <h4 className="font-semibold text-purple-900 text-sm">How to Play</h4>
+                <p className="text-purple-700 text-sm mt-1">
+                  Read the three statements below. <strong>One is a lie</strong> - click on the statement you think is false!
+                </p>
+              </div>
+            </div>
+          </div>
+        )}
+        
         <div className="space-y-3 mb-6">
           {statements.map((statement, index) => (
             <div 
