@@ -20,14 +20,14 @@ export default function NavigationHeader({ user }: NavigationHeaderProps) {
             <div className="bg-farcaster p-1.5 rounded-lg">
               <VenetianMask className="text-white h-4 w-4" />
             </div>
-            <h1 className="text-lg font-bold text-gray-900">🎭 Truth Lie</h1>
+            <h1 className="text-sm font-bold text-gray-900">🎭 Truth Lie</h1>
           </Link>
           
           <div className="flex items-center space-x-2">
             {/* User Points Display */}
-            <Badge variant="secondary" className="bg-gradient-to-r from-farcaster to-farcaster-dark text-white hover:opacity-90">
-              <Star className="mr-1 h-3 w-3" />
-              <span>{user.points} pts</span>
+            <Badge variant="secondary" className="bg-purple-500 text-white hover:bg-purple-600">
+              <Star className="mr-1 h-3 w-3 fill-current" />
+              <span className="font-medium">{user.points} pts</span>
             </Badge>
             
             {/* User Profile */}
@@ -44,20 +44,30 @@ export default function NavigationHeader({ user }: NavigationHeaderProps) {
             <Button 
               variant="ghost" 
               size="sm" 
-              className="relative"
-              onClick={() => {
-                // TODO: Implement notifications panel
-                console.log('Notifications clicked');
+              className="relative hover:bg-gray-100"
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                alert('No new notifications');
               }}
             >
-              <Bell className="h-4 w-4" />
-              <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full w-4 h-4 flex items-center justify-center">
+              <Bell className="h-4 w-4 text-gray-600" />
+              <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full w-4 h-4 flex items-center justify-center font-medium">
                 2
               </span>
             </Button>
 
             {/* Logout */}
-            <Button variant="ghost" size="sm" onClick={logout} className="text-gray-600 hover:text-red-600">
+            <Button 
+              variant="ghost" 
+              size="sm" 
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                logout();
+              }} 
+              className="text-gray-600 hover:text-red-600 hover:bg-red-50"
+            >
               <LogOut className="h-4 w-4" />
             </Button>
           </div>
