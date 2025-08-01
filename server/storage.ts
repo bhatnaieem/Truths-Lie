@@ -138,6 +138,7 @@ export class MemStorage implements IStorage {
       const game: Game = {
         ...gameData,
         explanation: gameData.explanation || null,
+        allowFriendsOnly: gameData.allowFriendsOnly || false,
       };
       this.games.set(game.id, game);
     });
