@@ -40,7 +40,7 @@ export default function CreateGameForm({ userId, onClose }: CreateGameFormProps)
     onSuccess: () => {
       toast({
         title: "Game created!",
-        description: "Your truth or lie game has been published and is now live.",
+        description: "Your Truth Lie game has been published and is now live.",
       });
       queryClient.invalidateQueries({ queryKey: ['/api/games'] });
       onClose();
@@ -99,7 +99,7 @@ export default function CreateGameForm({ userId, onClose }: CreateGameFormProps)
   return (
     <Card>
       <CardHeader className="flex flex-row items-center justify-between">
-        <CardTitle>Create Your Truth or Lie Game</CardTitle>
+        <CardTitle>Create Your Truth Lie Game</CardTitle>
         <Button variant="ghost" size="sm" onClick={onClose}>
           <X className="h-4 w-4" />
         </Button>
