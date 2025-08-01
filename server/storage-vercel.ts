@@ -53,7 +53,67 @@ function initializeStorage() {
     });
     
     storage.set('users', users);
-    storage.set('games', new Map<string, Game>());
+    
+    // Add demo games
+    const games = new Map<string, Game>();
+    const userIds = Array.from(users.keys());
+    const demoGames = [
+      {
+        id: "demo-game-1",
+        creatorId: userIds[1], // mike.crypto
+        statements: [
+          "I once ate 50 chicken nuggets in one sitting",
+          "I have a pet tarantula named Fred", 
+          "I can speak fluent Japanese"
+        ],
+        lieStatement: 2,
+        explanation: "I actually don't have any pets! I'm allergic to most animals.",
+        isActive: true,
+        allowFriendsOnly: false,
+        expiresAt: new Date(Date.now() + 24 * 60 * 60 * 1000), // 24 hours from now
+        createdAt: new Date(Date.now() - 2 * 60 * 60 * 1000), // 2 hours ago
+      },
+      {
+        id: "demo-game-2",
+        creatorId: userIds[2], // sarah.base
+        statements: [
+          "I've been to 15 different countries",
+          "I was born with an extra toe",
+          "I once met a celebrity at a coffee shop"
+        ],
+        lieStatement: 1,
+        explanation: "I've actually only been to 3 countries - the US, Canada, and Mexico!",
+        isActive: true,
+        allowFriendsOnly: false,
+        expiresAt: new Date(Date.now() + 20 * 60 * 60 * 1000), // 20 hours from now
+        createdAt: new Date(Date.now() - 1 * 60 * 60 * 1000), // 1 hour ago
+      },
+      {
+        id: "demo-game-3",
+        creatorId: userIds[3], // emily.base
+        statements: [
+          "I can solve a Rubik's cube in under 30 seconds",
+          "I once accidentally dyed my hair green", 
+          "I have a collection of over 100 rubber ducks"
+        ],
+        lieStatement: 3,
+        explanation: "I only have about 20 rubber ducks, not 100! But they're still pretty cool.",
+        isActive: true,
+        allowFriendsOnly: false,
+        expiresAt: new Date(Date.now() + 18 * 60 * 60 * 1000), // 18 hours from now
+        createdAt: new Date(Date.now() - 30 * 60 * 1000), // 30 minutes ago
+      }
+    ];
+
+    demoGames.forEach(gameData => {
+      const game: Game = {
+        ...gameData,
+        explanation: gameData.explanation || null,
+      };
+      games.set(game.id, game);
+    });
+    
+    storage.set('games', games);
     storage.set('votes', new Map<string, Vote>());
     storage.set('activities', new Map<string, Activity>());
   }
