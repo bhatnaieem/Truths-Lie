@@ -14,8 +14,8 @@ export default function NavigationHeader({ user }: NavigationHeaderProps) {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           <Link href="/" className="flex items-center space-x-4 hover:opacity-80">
-            <div className="bg-farcaster p-2 rounded-xl">
-              <VenetianMask className="text-white h-6 w-6" />
+            <div className="bg-farcaster p-1.5 rounded-lg">
+              <VenetianMask className="text-white h-4 w-4" />
             </div>
             <h1 className="text-2xl font-bold text-gray-900">🎭 Truth Lie</h1>
           </Link>
