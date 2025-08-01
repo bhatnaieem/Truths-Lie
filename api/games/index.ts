@@ -3,6 +3,14 @@ import { vercelStorage as storage } from '../../server/storage-vercel';
 import { insertGameSchema } from '../../shared/schema';
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
+  // Handle CORS
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+
+  if (req.method === 'OPTIONS') {
+    return res.status(200).end();
+  }
   if (req.method === 'GET') {
     try {
       const { limit = 10, friendsOnly = false, userId } = req.query;
