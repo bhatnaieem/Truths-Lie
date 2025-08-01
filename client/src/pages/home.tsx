@@ -19,11 +19,11 @@ export default function Home() {
   const [showAbout, setShowAbout] = useState(false);
   const [gameFilter, setGameFilter] = useState<'all' | 'friends' | 'new'>('all');
 
-  if (!user) return null;
-
+  // Always call hooks first before any conditional returns
   const { data: gamesData, isLoading: gamesLoading } = useQuery({
-    queryKey: ['/api/games', { userId: user.id, friendsOnly: gameFilter === 'friends' }],
+    queryKey: ['/api/games', { userId: user?.id, friendsOnly: gameFilter === 'friends' }],
     queryFn: async () => {
+      if (!user) return { games: [] };
       const params = new URLSearchParams({
         userId: user.id,
         limit: '10',
@@ -33,16 +33,22 @@ export default function Home() {
       if (!response.ok) throw new Error('Failed to fetch games');
       return response.json();
     },
+    enabled: !!user,
   });
 
   const { data: statsData } = useQuery({
-    queryKey: ['/api/users', user.id, 'stats'],
+    queryKey: ['/api/users', user?.id, 'stats'],
     queryFn: async () => {
+      if (!user) return { stats: {} };
       const response = await fetch(`/api/users/${user.id}/stats`);
       if (!response.ok) throw new Error('Failed to fetch stats');
       return response.json();
     },
+    enabled: !!user,
   });
+
+  if (!user) return null;
+
 
   const games: GameWithCreator[] = gamesData?.games || [];
   const stats = statsData?.stats || {
