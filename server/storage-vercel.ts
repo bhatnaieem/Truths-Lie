@@ -239,7 +239,7 @@ export class VercelStorage {
       id: randomUUID(),
       ...gameData,
       explanation: gameData.explanation || null,
-      allowFriendsOnly: gameData.allowFriendsOnly || false,
+      allowFriendsOnly: gameData.allowFriendsOnly ?? false,
       isActive: true,
       expiresAt: new Date(Date.now() + 24 * 60 * 60 * 1000), // 24 hours from now
       createdAt: new Date(),
@@ -366,14 +366,24 @@ export class VercelStorage {
       }
     });
 
+    const voteCounts: { [key: number]: number } = {
+      [1]: statementCounts[0],
+      [2]: statementCounts[1], 
+      [3]: statementCounts[2],
+    };
+
+    const correctPercentages: { [key: number]: number } = {};
+    if (votes.length > 0) {
+      correctPercentages[1] = statementCounts[0] / votes.length * 100;
+      correctPercentages[2] = statementCounts[1] / votes.length * 100;
+      correctPercentages[3] = statementCounts[2] / votes.length * 100;
+    }
+
     return {
       ...game,
-      voteCounts: {
-        totalVotes: votes.length,
-        statementVotes: statementCounts,
-        correctGuessers: votes.filter(v => v.isCorrect).length,
-        pointsEarned: votes.filter(v => !v.isCorrect).length * 2, // Points for creator
-      }
+      votes,
+      voteCounts,
+      correctPercentages,
     };
   }
 
