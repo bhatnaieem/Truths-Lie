@@ -179,6 +179,7 @@ export class VercelStorage {
       id: randomUUID(),
       ...gameData,
       explanation: gameData.explanation || null,
+      allowFriendsOnly: gameData.allowFriendsOnly || false,
       isActive: true,
       expiresAt: new Date(Date.now() + 24 * 60 * 60 * 1000), // 24 hours from now
       createdAt: new Date(),
