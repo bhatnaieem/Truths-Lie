@@ -26,7 +26,7 @@ function FarcasterAuthComponent({ onLoginSuccess }: FarcasterLoginProps) {
     if (isAuthenticated && profile) {
       const userData = {
         farcasterUsername: profile.username,
-        farcasterUserId: profile.fid.toString(),
+        farcasterUserId: profile.fid?.toString() || '',
         avatar: profile.pfpUrl,
       };
       
@@ -56,8 +56,8 @@ export default function FarcasterLogin({ onLoginSuccess }: FarcasterLoginProps) 
             <div className="mx-auto mb-4 w-16 h-16 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full flex items-center justify-center">
               <span className="text-2xl">🎭</span>
             </div>
-            <CardTitle className="text-2xl">Welcome to Truth Lie</CardTitle>
-            <CardDescription>
+            <CardTitle className="text-xl">Welcome to Truth Lie</CardTitle>
+            <CardDescription className="text-sm">
               Connect with Farcaster to start playing the ultimate social guessing game
             </CardDescription>
           </CardHeader>
@@ -76,7 +76,10 @@ export default function FarcasterLogin({ onLoginSuccess }: FarcasterLoginProps) 
               </div>
             </div>
 
-            <SignInButton>
+            <SignInButton 
+              nonce="truth-lie-auth"
+              onSuccess={() => console.log('Farcaster auth success')}
+            >
               <Button 
                 className="w-full bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white font-medium py-3"
                 size="lg"
