@@ -90,24 +90,24 @@ export default function Home() {
       
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Game Statistics Banner */}
-        <Card className="bg-gradient-to-r from-farcaster to-farcaster-dark text-white mb-8">
+        <Card className="bg-gradient-to-r from-purple-500 to-pink-500 text-white mb-8">
           <CardContent className="pt-6">
             <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
               <div className="text-center">
-                <div className="text-3xl font-bold">{stats.gamesPlayed}</div>
-                <div className="text-purple-200 text-sm">Games Played</div>
+                <div className="text-3xl font-bold text-white">{stats.gamesPlayed}</div>
+                <div className="text-white text-opacity-90 text-sm font-medium">Games Played</div>
               </div>
               <div className="text-center">
-                <div className="text-3xl font-bold">{stats.correctGuesses}</div>
-                <div className="text-purple-200 text-sm">Correct Guesses</div>
+                <div className="text-3xl font-bold text-white">{stats.correctGuesses}</div>
+                <div className="text-white text-opacity-90 text-sm font-medium">Correct Guesses</div>
               </div>
               <div className="text-center">
-                <div className="text-3xl font-bold">{stats.stumpedPlayers}</div>
-                <div className="text-purple-200 text-sm">Players Stumped</div>
+                <div className="text-3xl font-bold text-white">{stats.stumpedPlayers}</div>
+                <div className="text-white text-opacity-90 text-sm font-medium">Players Stumped</div>
               </div>
               <div className="text-center">
-                <div className="text-3xl font-bold">{stats.streak}</div>
-                <div className="text-purple-200 text-sm">Day Streak</div>
+                <div className="text-3xl font-bold text-white">{stats.streak}</div>
+                <div className="text-white text-opacity-90 text-sm font-medium">Day Streak</div>
               </div>
             </div>
           </CardContent>
@@ -216,22 +216,22 @@ export default function Home() {
             <ActivityFeed />
             
             {/* Daily Challenge */}
-            <Card className="bg-gradient-to-br from-farcaster to-farcaster-dark text-white">
+            <Card className="bg-gradient-to-br from-purple-500 to-pink-500 text-white">
               <CardContent className="pt-6">
                 <div className="flex items-center justify-between mb-4">
-                  <h3 className="text-lg font-bold">Daily Challenge</h3>
+                  <h3 className="text-lg font-bold text-white">Daily Challenge</h3>
                   <Trophy className="h-6 w-6 text-yellow-300" />
                 </div>
                 
                 <div className="space-y-3">
-                  <p className="text-purple-100 text-sm">Complete today's challenge for bonus points!</p>
+                  <p className="text-white text-opacity-90 text-sm font-medium">Complete today's challenge for bonus points!</p>
                   
                   <div className="bg-white/20 rounded-lg p-3">
-                    <h4 className="font-semibold mb-1">Stump 5 Players</h4>
-                    <p className="text-sm text-purple-200">Create a game that stumps at least 5 different players</p>
+                    <h4 className="font-semibold mb-1 text-white">Stump 5 Players</h4>
+                    <p className="text-sm text-white text-opacity-80">Create a game that stumps at least 5 different players</p>
                     
                     <div className="mt-3">
-                      <div className="flex justify-between text-sm mb-1">
+                      <div className="flex justify-between text-sm mb-1 text-white">
                         <span>Progress</span>
                         <span>3/5</span>
                       </div>
@@ -242,8 +242,8 @@ export default function Home() {
                   </div>
                   
                   <div className="flex items-center justify-between text-sm">
-                    <span className="text-purple-200">Reward: +50 bonus points</span>
-                    <span className="text-purple-200 flex items-center">
+                    <span className="text-white text-opacity-90 font-medium">Reward: +50 bonus points</span>
+                    <span className="text-white text-opacity-80 flex items-center">
                       <Clock className="h-3 w-3 mr-1" />
                       23h 45m left
                     </span>
