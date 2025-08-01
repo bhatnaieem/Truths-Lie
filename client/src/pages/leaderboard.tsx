@@ -63,7 +63,7 @@ export default function Leaderboard() {
         {/* Header */}
         <div className="flex items-center justify-between mb-8">
           <div>
-            <h1 className="text-3xl font-bold text-gray-900">Leaderboard</h1>
+            <h1 className="text-3xl font-bold text-gray-900">🏆 Farcaster Leaderboard</h1>
             <p className="text-gray-600 mt-1">See who's leading the truth detection game</p>
           </div>
           
@@ -95,7 +95,7 @@ export default function Leaderboard() {
                       <Medal className="h-8 w-8 text-gray-400" />
                     </div>
                   </div>
-                  <h3 className="font-bold text-gray-900">@{leaderboard[1].user.farcasterUsername}</h3>
+                  <h3 className="font-bold text-farcaster">@{leaderboard[1].user.farcasterUsername}</h3>
                   <p className="text-2xl font-bold text-gray-600">{leaderboard[1].weeklyPoints}</p>
                   <p className="text-sm text-gray-500">points</p>
                 </div>
@@ -112,7 +112,7 @@ export default function Leaderboard() {
                       <Trophy className="h-10 w-10 text-yellow-500" />
                     </div>
                   </div>
-                  <h3 className="font-bold text-gray-900">@{leaderboard[0].user.farcasterUsername}</h3>
+                  <h3 className="font-bold text-farcaster">@{leaderboard[0].user.farcasterUsername}</h3>
                   <p className="text-3xl font-bold text-yellow-600">{leaderboard[0].weeklyPoints}</p>
                   <p className="text-sm text-gray-500">points</p>
                 </div>
@@ -129,7 +129,7 @@ export default function Leaderboard() {
                       <Award className="h-8 w-8 text-orange-500" />
                     </div>
                   </div>
-                  <h3 className="font-bold text-gray-900">@{leaderboard[2].user.farcasterUsername}</h3>
+                  <h3 className="font-bold text-farcaster">@{leaderboard[2].user.farcasterUsername}</h3>
                   <p className="text-2xl font-bold text-orange-600">{leaderboard[2].weeklyPoints}</p>
                   <p className="text-sm text-gray-500">points</p>
                 </div>
@@ -168,7 +168,7 @@ export default function Leaderboard() {
                   return (
                     <div 
                       key={entry.user.id}
-                      className={`flex items-center justify-between p-3 rounded-lg transition-colors ${
+                      className={`flex items-center p-4 rounded-lg transition-colors ${
                         isCurrentUser 
                           ? 'bg-farcaster/10 border border-farcaster/30' 
                           : entry.rank <= 3 
@@ -176,7 +176,7 @@ export default function Leaderboard() {
                             : 'hover:bg-gray-50'
                       }`}
                     >
-                      <div className="flex items-center space-x-4">
+                      <div className="flex items-center space-x-4 flex-1 min-w-0">
                         <div className={`flex items-center justify-center w-8 h-8 rounded-full text-white text-sm font-bold ${getRankBadgeColor(entry.rank)}`}>
                           {entry.rank <= 3 ? getRankIcon(entry.rank) : entry.rank}
                         </div>
@@ -185,23 +185,23 @@ export default function Leaderboard() {
                           alt={`${entry.user.farcasterUsername} avatar`}
                           className="w-10 h-10 rounded-full object-cover"
                         />
-                        <div>
-                          <h4 className={`font-semibold ${isCurrentUser ? 'text-farcaster' : 'text-gray-900'}`}>
+                        <div className="flex-1 min-w-0">
+                          <h4 className={`font-semibold text-sm ${isCurrentUser ? 'text-farcaster' : 'text-gray-900'}`}>
                             @{entry.user.farcasterUsername}
                             {isCurrentUser && <span className="ml-2 text-xs">(You)</span>}
                           </h4>
-                          <div className="flex items-center space-x-4 text-xs text-gray-500">
+                          <div className="flex items-center space-x-3 text-xs text-gray-500 mt-1">
                             <span>{entry.user.totalGamesPlayed} games</span>
                             <span>{entry.user.totalCorrectGuesses} correct</span>
                             <span>{entry.user.totalPlayersStumped} stumped</span>
                           </div>
                         </div>
                       </div>
-                      <div className="text-right">
-                        <p className={`text-lg font-bold ${isCurrentUser ? 'text-farcaster' : 'text-gray-900'}`}>
+                      <div className="text-right flex-shrink-0 ml-4">
+                        <p className={`text-xl font-bold ${isCurrentUser ? 'text-farcaster' : 'text-gray-900'}`}>
                           {entry.weeklyPoints}
                         </p>
-                        <p className="text-xs text-gray-500">points</p>
+                        <p className="text-xs text-gray-500 mt-1">points</p>
                       </div>
                     </div>
                   );
