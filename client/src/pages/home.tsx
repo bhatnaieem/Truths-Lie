@@ -71,9 +71,9 @@ export default function Home() {
       {/* Welcome Instructions */}
       <div className="max-w-4xl mx-auto px-4 pt-8 pb-4">
         <div className="bg-gradient-to-r from-purple-500 to-pink-500 rounded-xl text-white p-6 mb-8">
-          <h2 className="text-2xl font-bold mb-2">Welcome to Truth Lie!</h2>
+          <h2 className="text-2xl font-bold mb-2">🎭 Welcome to Truth Lie!</h2>
           <p className="text-purple-100 mb-3">
-            Challenge your friends and test your intuition in this social guessing game.
+            The social guessing game built for Farcaster. Challenge your friends and test your intuition!
           </p>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
             <div className="flex items-center space-x-2">
@@ -321,8 +321,8 @@ export default function Home() {
             
             <div className="space-y-4">
               <p className="text-gray-600 text-sm">
-                Truth Lie is a social guessing game built on Farcaster where players create engaging 
-                three-statement challenges and the community votes to detect the lie.
+                🎯 Truth Lie is a social guessing game built <strong>natively for Farcaster</strong> where players create engaging 
+                three-statement challenges and the community votes to detect the lie. Share your results and challenge your Farcaster friends!
               </p>
               
               <div className="bg-purple-50 border border-purple-200 rounded-lg p-4">
@@ -337,15 +337,18 @@ export default function Home() {
               
               <div className="border-t pt-4">
                 <p className="text-gray-600 text-sm mb-3">
-                  Created by deathnotes.eth - Follow me on Farcaster for updates!
+                  🚀 Created by <strong>@deathnotes.eth</strong> - Follow me on Farcaster for updates and new features!
                 </p>
                 <Button 
                   className="w-full bg-farcaster hover:bg-farcaster-dark text-white"
                   onClick={() => window.open('https://farcaster.xyz/deathnotes.eth', '_blank')}
                 >
                   <ExternalLink className="mr-2 h-4 w-4" />
-                  Follow @deathnotes.eth
+                  Follow @deathnotes.eth on Farcaster
                 </Button>
+                <p className="text-xs text-gray-500 text-center mt-2">
+                  Built natively for the Farcaster ecosystem 🟣
+                </p>
               </div>
             </div>
           </div>

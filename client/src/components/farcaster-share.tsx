@@ -39,7 +39,7 @@ export default function FarcasterShare({ game, userScore }: FarcasterShareProps)
       shareText += `${emoji} ${statement}\n`;
     });
     
-    shareText += `\nCan you spot the lie? Play at truthlie.game`;
+    shareText += `\n🎮 Can you spot the lie? Play Truth Lie and challenge your friends!\n\n#Farcaster #TruthLie #SocialGame`;
     
     return shareText;
   };
