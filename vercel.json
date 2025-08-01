@@ -1,10 +1,66 @@
 {
+  "functions": {
+    "api/*.ts": {
+      "runtime": "@vercel/node"
+    }
+  },
   "buildCommand": "npm run build",
   "outputDirectory": "dist/public",
   "rewrites": [
     {
+      "source": "/api/auth/login",
+      "destination": "/api/auth/login.ts"
+    },
+    {
+      "source": "/api/games",
+      "destination": "/api/games/index.ts"
+    },
+    {
+      "source": "/api/games/([^/]+)/vote",
+      "destination": "/api/games/[id]/vote.ts"
+    },
+    {
+      "source": "/api/games/(.*)",
+      "destination": "/api/games/[id].ts"
+    },
+    {
+      "source": "/api/users/([^/]+)/stats",
+      "destination": "/api/users/[id]/stats.ts"
+    },
+    {
+      "source": "/api/users/(.*)",
+      "destination": "/api/users/[id].ts"
+    },
+    {
+      "source": "/api/leaderboard",
+      "destination": "/api/leaderboard.ts"
+    },
+    {
+      "source": "/api/activities",
+      "destination": "/api/activities.ts"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ],
+  "headers": [
+    {
       "source": "/api/(.*)",
-      "destination": "/api/index.ts"
+      "headers": [
+        {
+          "key": "Access-Control-Allow-Origin",
+          "value": "*"
+        },
+        {
+          "key": "Access-Control-Allow-Methods",
+          "value": "GET, POST, PUT, DELETE, OPTIONS"
+        },
+        {
+          "key": "Access-Control-Allow-Headers",
+          "value": "Content-Type, Authorization"
+        }
+      ]
     }
   ]
 }
