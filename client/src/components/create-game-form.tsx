@@ -165,7 +165,7 @@ export default function CreateGameForm({ userId, onClose }: CreateGameFormProps)
               <Checkbox 
                 id="friends-only"
                 checked={allowFriendsOnly}
-                onCheckedChange={setAllowFriendsOnly}
+                onCheckedChange={(checked) => setAllowFriendsOnly(checked === true)}
               />
               <Label htmlFor="friends-only" className="text-sm text-gray-700">
                 Only friends can play
