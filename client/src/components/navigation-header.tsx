@@ -17,7 +17,7 @@ export default function NavigationHeader({ user }: NavigationHeaderProps) {
             <div className="bg-farcaster p-2 rounded-xl">
               <VenetianMask className="text-white h-6 w-6" />
             </div>
-            <h1 className="text-2xl font-bold text-gray-900">TruthLie</h1>
+            <h1 className="text-2xl font-bold text-gray-900">Truth Lie</h1>
           </Link>
           
           <div className="flex items-center space-x-4">
