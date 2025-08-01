@@ -17,7 +17,7 @@ export default function NavigationHeader({ user }: NavigationHeaderProps) {
             <div className="bg-farcaster p-2 rounded-xl">
               <VenetianMask className="text-white h-6 w-6" />
             </div>
-            <h1 className="text-2xl font-bold text-gray-900">Truth Lie</h1>
+            <h1 className="text-2xl font-bold text-gray-900">🎭 Truth Lie</h1>
           </Link>
           
           <div className="flex items-center space-x-4">
@@ -34,7 +34,7 @@ export default function NavigationHeader({ user }: NavigationHeaderProps) {
                 alt="User Avatar" 
                 className="w-8 h-8 rounded-full object-cover"
               />
-              <span className="text-sm font-medium text-gray-700">@{user.farcasterUsername}</span>
+              <span className="text-sm font-medium text-farcaster">@{user.farcasterUsername}</span>
             </div>
             
             {/* Notifications */}

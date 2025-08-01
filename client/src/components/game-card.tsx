@@ -109,7 +109,7 @@ export default function GameCard({ game, currentUserId }: GameCardProps) {
               className="w-12 h-12 rounded-full object-cover"
             />
             <div>
-              <h3 className="font-semibold text-gray-900">@{game.creator.farcasterUsername}</h3>
+              <h3 className="font-semibold text-farcaster">@{game.creator.farcasterUsername}</h3>
               <p className="text-sm text-gray-500">
                 {new Date(game.createdAt).toLocaleDateString()}
               </p>

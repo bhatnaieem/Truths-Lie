@@ -46,7 +46,7 @@ export default function LeaderboardWidget({ currentUserId }: LeaderboardWidgetPr
   return (
     <Card>
       <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-4">
-        <CardTitle className="text-lg font-bold">Weekly Leaders</CardTitle>
+        <CardTitle className="text-lg font-bold">🏆 Farcaster Leaders</CardTitle>
         <Select value={timeframe} onValueChange={(value) => setTimeframe(value as 'weekly' | 'all-time')}>
           <SelectTrigger className="w-[120px] text-sm">
             <SelectValue />

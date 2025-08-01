@@ -110,7 +110,7 @@ export default function Game() {
                   className="w-12 h-12 rounded-full object-cover"
                 />
                 <div>
-                  <h3 className="font-semibold text-gray-900">@{game.creator.farcasterUsername}</h3>
+                  <h3 className="font-semibold text-farcaster">@{game.creator.farcasterUsername}</h3>
                   <p className="text-sm text-gray-500">
                     {new Date(game.createdAt).toLocaleDateString()}
                   </p>
@@ -134,7 +134,7 @@ export default function Game() {
                   <h4 className="font-semibold text-blue-900">Truth Lie Challenge</h4>
                 </div>
                 <p className="text-blue-800 text-sm">
-                  @{game.creator.farcasterUsername} has shared three statements about themselves. 
+                  <span className="text-farcaster font-semibold">@{game.creator.farcasterUsername}</span> has shared three statements about themselves. 
                   <strong> Two are true, one is a lie.</strong> Can you spot which one is false?
                 </p>
                 <p className="text-blue-700 text-xs mt-2">
