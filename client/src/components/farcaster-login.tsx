@@ -11,19 +11,27 @@ interface FarcasterLoginProps {
 
 const config = {
   rpcUrl: "https://mainnet.optimism.io",
-  domain: typeof window !== 'undefined' ? window.location.hostname : "truthlie.app",
-  siweUri: typeof window !== 'undefined' ? window.location.origin : "https://truthlie.app",
+  domain: typeof window !== 'undefined' ? window.location.hostname : "localhost",
+  siweUri: typeof window !== 'undefined' ? window.location.origin : "http://localhost:5000",
 };
 
 function FarcasterAuthComponent({ onLoginSuccess }: FarcasterLoginProps) {
+  const profileData = useProfile();
   const { 
     isAuthenticated, 
     profile, 
-  } = useProfile();
+  } = profileData;
+
+  // Debug logging
+  useEffect(() => {
+    console.log('Profile hook data:', profileData);
+  }, [profileData]);
 
   // Auto-login when Farcaster authentication succeeds
   useEffect(() => {
+    console.log('Farcaster auth state:', { isAuthenticated, profile });
     if (isAuthenticated && profile) {
+      console.log('Processing Farcaster login for user:', profile);
       const userData = {
         farcasterUsername: profile.username,
         farcasterUserId: profile.fid?.toString() || '',
@@ -36,9 +44,17 @@ function FarcasterAuthComponent({ onLoginSuccess }: FarcasterLoginProps) {
         body: JSON.stringify(userData),
         headers: { 'Content-Type': 'application/json' },
       })
-      .then(res => res.json())
-      .then(data => onLoginSuccess(data.user))
-      .catch(error => console.error('Login failed:', error));
+      .then(res => {
+        console.log('Backend login response:', res.status);
+        return res.json();
+      })
+      .then(data => {
+        console.log('Login successful:', data);
+        onLoginSuccess(data.user);
+      })
+      .catch(error => {
+        console.error('Login failed:', error);
+      });
     }
   }, [isAuthenticated, profile, onLoginSuccess]);
 
@@ -76,10 +92,7 @@ export default function FarcasterLogin({ onLoginSuccess }: FarcasterLoginProps) 
               </div>
             </div>
 
-            <SignInButton 
-              nonce="truth-lie-auth"
-              onSuccess={() => console.log('Farcaster auth success')}
-            >
+            <SignInButton>
               <Button 
                 className="w-full bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white font-medium py-3"
                 size="lg"
