@@ -6,6 +6,7 @@ import { Badge } from "@/components/ui/badge";
 import { useToast } from "@/hooks/use-toast";
 import { Flag, Share, Clock, CheckCircle, XCircle } from "lucide-react";
 import { Link } from "wouter";
+import FarcasterShare from "@/components/farcaster-share";
 import type { GameWithCreator } from "@shared/schema";
 
 interface GameCardProps {
@@ -15,6 +16,7 @@ interface GameCardProps {
 
 export default function GameCard({ game, currentUserId }: GameCardProps) {
   const [selectedStatement, setSelectedStatement] = useState<number | null>(null);
+  const [showFarcasterShare, setShowFarcasterShare] = useState(false);
   const { toast } = useToast();
   const queryClient = useQueryClient();
 
@@ -153,7 +155,11 @@ export default function GameCard({ game, currentUserId }: GameCardProps) {
               <Flag className="mr-1 h-3 w-3" />
               Report
             </Button>
-            <Button variant="ghost" size="sm">
+            <Button 
+              variant="ghost" 
+              size="sm"
+              onClick={() => setShowFarcasterShare(!showFarcasterShare)}
+            >
               <Share className="mr-1 h-3 w-3" />
               Share
             </Button>
@@ -170,6 +176,19 @@ export default function GameCard({ game, currentUserId }: GameCardProps) {
             </Link>
           </div>
         </div>
+        
+        {/* Farcaster Share Component */}
+        {showFarcasterShare && (
+          <div className="mt-4 border-t pt-4">
+            <FarcasterShare 
+              game={game as any} 
+              userScore={game.userVote ? {
+                correct: game.userVote.isCorrect,
+                selectedStatement: game.userVote.selectedStatement
+              } : undefined}
+            />
+          </div>
+        )}
       </CardContent>
     </Card>
   );

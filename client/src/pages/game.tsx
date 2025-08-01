@@ -2,6 +2,7 @@ import { useParams } from "wouter";
 import { useQuery } from "@tanstack/react-query";
 import NavigationHeader from "@/components/navigation-header";
 import VotingInterface from "@/components/voting-interface";
+import FarcasterShare from "@/components/farcaster-share";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -138,6 +139,19 @@ export default function Game() {
             )}
           </CardContent>
         </Card>
+
+        {/* Farcaster Share Section */}
+        {!game.isActive && game.hasVoted && (
+          <div className="mb-6">
+            <FarcasterShare 
+              game={game as any}
+              userScore={game.userVote ? {
+                correct: game.userVote.isCorrect,
+                selectedStatement: game.userVote.selectedStatement
+              } : undefined}
+            />
+          </div>
+        )}
 
         {/* Game Stats */}
         <Card>
