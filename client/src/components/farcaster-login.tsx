@@ -16,22 +16,14 @@ const config = {
 };
 
 function FarcasterAuthComponent({ onLoginSuccess }: FarcasterLoginProps) {
-  const profileData = useProfile();
   const { 
     isAuthenticated, 
     profile, 
-  } = profileData;
-
-  // Debug logging
-  useEffect(() => {
-    console.log('Profile hook data:', profileData);
-  }, [profileData]);
+  } = useProfile();
 
   // Auto-login when Farcaster authentication succeeds
   useEffect(() => {
-    console.log('Farcaster auth state:', { isAuthenticated, profile });
     if (isAuthenticated && profile) {
-      console.log('Processing Farcaster login for user:', profile);
       const userData = {
         farcasterUsername: profile.username,
         farcasterUserId: profile.fid?.toString() || '',
@@ -44,17 +36,9 @@ function FarcasterAuthComponent({ onLoginSuccess }: FarcasterLoginProps) {
         body: JSON.stringify(userData),
         headers: { 'Content-Type': 'application/json' },
       })
-      .then(res => {
-        console.log('Backend login response:', res.status);
-        return res.json();
-      })
-      .then(data => {
-        console.log('Login successful:', data);
-        onLoginSuccess(data.user);
-      })
-      .catch(error => {
-        console.error('Login failed:', error);
-      });
+      .then(res => res.json())
+      .then(data => onLoginSuccess(data.user))
+      .catch(error => console.error('Login failed:', error));
     }
   }, [isAuthenticated, profile, onLoginSuccess]);
 
